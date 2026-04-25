@@ -52,7 +52,7 @@ ecommerce_project/
 ### 第一步：克隆仓库
 
 ```bash
-git clone https://github.com/<your-username>/online-retail-analysis.git
+git clone https://github.com/JanetyGibsonu/online-retail-data-analysis.git
 cd online-retail-analysis
 ```
 
