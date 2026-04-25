@@ -1,0 +1,10 @@
+pandas>=1.5.0
+numpy>=1.23.0
+matplotlib>=3.6.0
+seaborn>=0.12.0
+openpyxl>=3.0.0
+jupyter>=1.0.0
+nbformat>=5.7.0
+
+# 可选：用于从 Kaggle 自动下载数据集
+# kagglehub>=0.2.0
