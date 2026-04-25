@@ -1,10 +1,30 @@
 # 电商销售数据分析 — Online Retail Dataset
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://python.org)
-[![pandas](https://img.shields.io/badge/pandas-2.x-150458)](https://pandas.pydata.org)
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://python.org)
+[![Pandas](https://img.shields.io/badge/Pandas-1.5%2B-150458.svg)](https://pandas.pydata.org)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-3.6%2B-orange.svg)](https://matplotlib.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-基于 UCI Online Retail Dataset，对英国某在线零售商 2010–2011 年共 **54 万条** 交易记录进行完整的数据清洗、探索分析与用户价值分层，最终产出可落地的业务改进建议。
+基于 UCI Online Retail Dataset，对英国某在线零售商 2010–2011 年共 **54 万条**交易记录进行完整的数据清洗、探索分析与用户价值分层，最终产出可落地的业务改进建议。
+
+---
+
+## 数据来源
+
+本分析使用的数据集来自 [UCI Machine Learning Repository — Online Retail Dataset](https://archive.ics.uci.edu/ml/datasets/online+retail)，由 Kaggle 平台提供下载。数据集包含 541,909 条交易记录，涵盖 2010 年 12 月至 2011 年 12 月期间某英国在线零售商的真实订单数据。
+
+**数据字段说明：**
+
+| 字段 | 说明 |
+|------|------|
+| InvoiceNo | 发票号码（6 位整数，C 开头表示退货）|
+| StockCode | 商品代码（5 位整数 / 字母）|
+| Description | 商品描述 |
+| Quantity | 购买数量（负数表示退货）|
+| InvoiceDate | 交易日期和时间 |
+| UnitPrice | 单价（英镑）|
+| CustomerID | 客户编号（5 位整数）|
+| Country | 客户所在国家 |
 
 ---
 
@@ -22,6 +42,27 @@
 
 ---
 
+## 分析结果预览
+
+### 月度销售趋势
+![月度销售趋势](outputs/monthly_sales_trend.png)
+
+### 国家销售分布
+![国家销售分布](outputs/country_sales_pie.png)
+
+### 用户购买行为
+![用户购买行为](outputs/customer_purchase_analysis.png)
+
+### 热销商品 TOP 10
+![热销商品](outputs/top10_products.png)
+
+### RFM 用户价值分层
+![RFM分层](outputs/rfm_segments.png)
+
+> 所有图表和 CSV 文件均可通过运行脚本在本地生成。
+
+---
+
 ## 项目结构
 
 ```
@@ -29,8 +70,9 @@ ecommerce_project/
 ├── run_analysis.py              # 一键运行脚本（推荐，无需 Jupyter）
 ├── online_retail_analysis.ipynb # Jupyter Notebook 版本
 ├── analysis_functions.py        # 可复用分析函数（RFM / KPI）
-├── data_loading.py              # 数据加载工具
+├── data_loading.py              # 数据加载工具（兼容多种格式）
 ├── requirements.txt             # Python 依赖
+├── LICENSE                      # MIT 开源许可证
 ├── README.md
 └── outputs/                     # 运行后自动生成
     ├── monthly_sales_trend.png
@@ -52,8 +94,8 @@ ecommerce_project/
 ### 第一步：克隆仓库
 
 ```bash
-git clone https://github.com/JanetyGibsonu/online-retail-data-analysis.git
-cd online-retail-analysis
+git clone https://github.com/<your-username>/online-retail-data-analysis.git
+cd online-retail-data-analysis
 ```
 
 ### 第二步：安装依赖
@@ -64,15 +106,15 @@ pip install -r requirements.txt
 
 ### 第三步：获取数据集
 
-从 [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data) 下载数据集，支持以下格式，放到项目根目录即可：
+从 [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data) 下载数据集，将文件放到项目根目录：
 
 | 文件名 | 格式 | 说明 |
 |--------|------|------|
-| `Online Retail.xlsx` | Excel 或 CSV-in-xlsx | Kaggle 下载的原始文件（直接放入，无需转换）|
-| `Online Retail.csv` | 标准 CSV | 将 xlsx 另存为 CSV 后重命名使用 |
+| `Online Retail.xlsx` | Excel 或 CSV-in-xlsx | Kaggle 下载的原始文件，直接放入即可 |
+| `Online Retail.csv` | 标准 CSV | 将 xlsx 另存为 CSV 后使用 |
 
-> 脚本会自动检测文件真实格式（xlsx / csv / 单列csv-in-xlsx），无需手动处理。
-> 若修改文件名，请同步修改 `run_analysis.py` 第 18 行的 `FILE_PATH`。
+> 脚本会**自动检测**文件真实格式（xlsx / csv / 单列 csv-in-xlsx），无需手动转换。  
+> 如需修改文件名，请同步修改 `run_analysis.py` 第 18 行的 `FILE_PATH`。
 
 ### 第四步：运行分析
 
@@ -95,9 +137,9 @@ python run_analysis.py
     Total Orders     :            18,536
     Total Customers  :             4,338
     Repeat Rate      :            35.7%
-[4/6] 生成图表...       5 张图表 ✓
+[4/6] 生成图表...       monthly_sales_trend.png ✓ ...
 [5/6] 业务洞察...
-[6/6] 导出CSV...        5 个文件 ✓
+[6/6] 导出CSV...        rfm_results.csv ✓
 =======================================================
   分析完成！所有文件已保存到 outputs/ 文件夹
 =======================================================
@@ -126,7 +168,7 @@ jupyter notebook online_retail_analysis.ipynb
 
 1. **建立会员积分体系** — 针对复购率偏低，预计提升 5–10%
 2. **拓展德法等海外市场** — 小范围包邮测试，预计非英国市场增量 +15%
-3. **尾部 SKU 清仓折扣** — 识别销量末尾 30% 商品，释放资金流
+3. **尾部 SKU 清仓折扣** — 识别销量末尾 30% 商品，释放资金流降低仓储成本
 
 ---
 
@@ -144,9 +186,23 @@ Python 版本：3.8 及以上（已在 3.12 验证通过）
 
 ---
 
-## 数据来源
+## 常见问题
 
-UCI Machine Learning Repository — [Online Retail Data Set](https://archive.ics.uci.edu/ml/datasets/online+retail)
+**Q：运行时报错 `FileNotFoundError: Online Retail.xlsx`**  
+A：请先从 [Kaggle](https://www.kaggle.com/datasets/carrie1/ecommerce-data) 下载数据集，将文件放到项目根目录后重新运行。
+
+**Q：图表中中文显示为方框**  
+A：不影响分析结果和数值。如需显示中文，请安装 SimHei 字体，或在系统字体目录中添加支持中文的字体后重启 Python 环境。
+
+**Q：CSV 文件可以直接运行吗？**  
+A：可以。脚本支持 `.xlsx`、`.csv` 以及"xlsx 外壳但内容为 CSV"三种格式，自动识别，无需手动转换。
+
+**Q：`KeyError: 'CustomerID'` 报错**  
+A：通常是数据文件读取后列名未正确拆分。请确认文件放置路径正确，且文件名为 `Online Retail.xlsx`，然后重启 Python 后重新运行。
+
+---
+
+## 数据引用
 
 > Chen, D., Sain, S.L., and Guo, K. (2012). Data mining for the online retail industry: A case study of RFM model-based customer segmentation using data mining. *Journal of Database Marketing and Customer Strategy Management*, 19(3), 197–208.
 
@@ -154,4 +210,4 @@ UCI Machine Learning Repository — [Online Retail Data Set](https://archive.ics
 
 ## License
 
-MIT
+本项目基于 [MIT License](LICENSE) 开源，欢迎 fork 和引用。
